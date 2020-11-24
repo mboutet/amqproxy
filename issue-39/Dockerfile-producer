@@ -1,0 +1,7 @@
+FROM python:3.8-buster
+
+COPY producer.py producer.py
+
+RUN pip install --no-cache-dir aio_pika
+
+ENTRYPOINT python producer.py

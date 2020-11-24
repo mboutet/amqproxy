@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  amqproxy:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    environment:
+      AMQP_URL: "amqp://rabbitmq:5672"
+    ports:
+      - "5673:5673"
+
+  rabbitmq:
+    image: "rabbitmq:3.8"
+    ports:
+      - "5672:5672"
+
+  producer-amqproxy:
+    build:
+      context: .
+      dockerfile: Dockerfile-producer
+    environment:
+      AMPQ_HOST: "amqproxy"
+      AMPQ_PORT: "5673"
+
+#  producer-rabbitmq:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-producer
+#    environment:
+#      AMPQ_HOST: "rabbitmq"
+#      AMPQ_PORT: "5672"
